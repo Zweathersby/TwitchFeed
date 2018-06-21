@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Twitch Feeds</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css" />
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+  <script src="//code.jquery.com/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.6.10/angular-animate.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.12/angular-strap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-strap/2.3.12/angular-strap.tpl.min.js"></script>
+  <script src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+</head>
+
+<body ng-app="apiaggApp">
+  <!--Nav-->
+  <nav class="navbar">
+    <a class="navbar-brand" ui-sref="feed">
+      <img ng-src="feed/feedslogo-md.png" width="250px" height="75px" alt="">
+    </a>
+
+
+    <ul class="nav">
+      <li class="nav-item"><a class="nav-link" ui-sref="dashboard" ui-sref-active="activeState">
+        <i class="fas fa-shoe-prints"></i>
+        <p><b>Track</b></p>
+      </a></li>
+      <li class="nav-item"><a class="nav-link" ui-sref="feed" ui-sref-active="activeState">
+        <i class="fas fa-rss"></i>
+        <p><b>Your Feed</b></p>
+      </a></li>
+    </ul>
+  </nav>
+  <!-- <div id="nav-break"></div> -->
+  <!-- <nav class="navbar">
+    <div class="col-container">
+      <div class="col">
+        <a class="navbar-brand" ui-sref="feed">
+          <img ng-src="feed/feedslogo-md.png" width="250px" height="75px" alt="">
+        </a>
+      </div>
+
+      <div class="col">
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link" ui-sref="dashboard" ui-sref-active="activeState">
+            <i class="fas fa-shoe-prints"></i>
+            <p><b>Track</b></p>
+          </a></li>
+          <li class="nav-item"><a class="nav-link" ui-sref="feed" ui-sref-active="activeState">
+            <i class="fas fa-rss"></i>
+            <p><b>Your Feed</b></p>
+          </a></li>
+        </ul>
+      </div>
+    </div>
+  </nav> -->
+
+  <!--Views-->
+  <ui-view></ui-view>
+
+  <!-- Components -->
+  <script src="app.module.js"></script>
+  <script src="app.config.js"></script>
+  <script src="constants/env.js"></script>
+  <script src="dashboard/twitch-list.module.js"></script>
+  <script src="controllers/twitch-streams.controller.js"></script>
+  <script src="controllers/twitch-feed.controller.js"></script>
+  <script src="services/twitch-list.service.js"></script>
+  <script src="services/twitch-feed.service.js"></script>
+  <script src="directives/twitch-streams.directive.js"></script>
+
+</body>
+</html>

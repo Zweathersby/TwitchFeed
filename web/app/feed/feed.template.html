@@ -1,0 +1,78 @@
+<div class="feed" ng-controller="TwitchFeedController as $ctrl">
+  <!-- Search by twitch name -->
+  <div class="feed-finder">
+    <h1>Find your feed</h1>
+    <!-- Search bar -->
+    <form class="input-group mb-3" ng-submit='$ctrl.getUserId($ctrl.name); $ctrl.showData = true'>
+      <input type="text" class="form-control" placeholder="Insert your twich name" aria-label="Search" ng-model="$ctrl.name">
+      <div class="input-group-append">
+        <button class="btn submit-search" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  <!-- Feed -->
+  <div class="row text-left" ng-if="$ctrl.showData">
+
+    <!-- List of Following -->
+    <div class="col-4 following-list">
+      <h2>Following</h2>
+      <ul>
+        <li ng-repeat="follow in $ctrl.following | orderBy: '-channel.followers'">
+          <a ng-href="{{follow.channel.url}}">
+            <div class="row">
+              <div class="col-4">
+                <img ng-src="{{follow.channel.logo}}" />
+              </div><div class="col-8">
+                <h4><i>{{follow.channel.display_name}}</i></h4>
+                <p><b>Followers:</b> {{follow.channel.followers | number}}</p>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div><div class="col-8">
+
+      <!-- Clip Feed -->
+      <div class="feed-list">
+        <h2 style="float:left;">Clips Feed</h2>
+
+        <form id="feed-organize">
+          <label>Organize by:</label>
+          <select ng-model="$ctrl.orderProp">
+            <option value="-views">Most views</option>
+            <option value="+game">Game</option>
+            <option value="+broadcaster.display_name">Streamer</option>
+          </select>
+        </form>
+      </div>
+
+      <ul class="container clips-list">
+        <li ng-repeat="clip in $ctrl.userClips | orderBy: $ctrl.orderProp | limitTo: $ctrl.quantity">
+          <div class="card">
+            <div class="card-body embed-responsive embed-responsive-16by9">
+              <iframe ng-src="{{clip.embed_url | trustThisUrl}}" width='640' height='360' autostart='0' frameborder='0' scrolling='no' allowfullscreen='true'></iframe>
+            </div>
+            <div class="card-footer">
+              <img ng-src="https://static-cdn.jtvnw.net/ttv-boxart/{{clip.game}}-52x72.jpg" alt="{{clip.game}}" style="float: right;" />
+              <h4 class="card-title rounded-bottom">{{clip.title}}</h4>
+
+              <div class="row">
+                <div class="col-6">
+                  <p align="left">{{clip.broadcaster.display_name}}</p>
+                </div><div class="col-6">
+                  <p align="right">{{clip.views | number}} views</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <!-- Get More Clips -->
+      <div class="text-center">
+        <button class="btn btn-outline-primary" align="center" ng-click='$ctrl.moreClips()'>More Clips</button>
+      </div>
+    </div>
+  </div>
+</div>

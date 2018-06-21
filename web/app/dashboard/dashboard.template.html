@@ -1,0 +1,50 @@
+<div class="dashboard" ng-controller="TwitchStreamsController as $ctrl">
+  <div class="container">
+    <h2>Get Trackin'</h2>
+    <!-- Search bar -->
+    <form class="input-group mb-3" ng-submit='$ctrl.queryStreams($ctrl.query)'>
+      <input type="text" class="form-control" placeholder="Insert streamers name" aria-label="Search" ng-model="$ctrl.query">
+      <div class="input-group-append">
+        <button class="btn submit-search" type="submit">
+          <div class="input-group-addon">
+              <i class="fas fa-search"></i>
+          </div></button>
+      </div>
+    </form>
+
+  </div>
+
+  <!-- Query Results -->
+  <ul>
+    <li ng-repeat="stream in $ctrl.streams.channels | orderBy: '-followers'">
+        <div class="row">
+          <!-- Streamer Logo -->
+          <div class="col-4">
+            <a ng-href="{{stream.url}}">
+              <div class="imgwrapper">
+                 <img ng-src="{{stream.logo}}" class="img-responsive">
+              </div>
+            </a>
+          </div>
+          <!-- Streamer Info -->
+          <div class="col-8">
+            <div class="row">
+              <h1>{{stream.display_name}}</h1>
+              <img ng-if="stream.status" ng-src="feed/live-icon-24.png" height="32px" width="32px" />
+            </div>
+
+            <!-- Displays followers and if streamer is live: game, status -->
+            <p><b>Followers:</b> {{stream.followers | number}}</p>
+            <p ng-if="stream.status">{{stream.status}}</p>
+            <p ng-if="stream.status"><i>Playing</i> <b>{{stream.game}}</b></p>
+            <p ng-if="!stream.status">Offline</p>
+
+          </div>
+        </div>
+
+      <hr class="style-two">
+    </li>
+  </ul>
+
+  <p id="track-results" align="center" ng-if="$ctrl.query">{{$ctrl.streams._total | number}} results for {{$ctrl.query}}</p>
+</div>
